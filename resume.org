@@ -1,13 +1,110 @@
+
+
 * Mise en place d'un depot git
 ** en local
 création du répertoire pour initialisation de git
-#+BEGIN_SRC
+#+BEGIN_SRC sh
 mkdir tuto
 cd tuto
 git init
 #+END_SRC
 ** par github
-#+BEGIN_SRC
+#+BEGIN_SRC sh
 git clone <urldudepot>
 #+END_SRC
-*
+
+* Utilisation basique de git
+** ajout d'un fichier
+#+BEGIN_SRC sh
+git add resume.org
+#+END_SRC
+** afficher le statut actuel du dépôt
+#+BEGIN_SRC sh
+git status
+#+END_SRC
+
+** réaliser un commit pour sauvegarder une étape
+Pour avoir un peu d'aide.
+#+BEGIN_SRC sh
+git help commit
+#+END_SRC
+
+#+BEGIN_SRC sh
+git commit -m "envoie du résumé"
+#+END_SRC
+
+#+RESULTS:
+[master (root-commit) 2bb1fab] envoi     du             résumé
+1       files         changed, 13         insertions(+),      0 deletions(-)
+create  mode          100644   resume.org
+
+** Vérifier les dernières modifications
+#+BEGIN_SRC sh
+git log
+#+END_SRC
+
+Commit toutes les modifications sur les fichiers précédemment ajoutés.
+#+BEGIN_SRC sh
+git commit -a -m "dernières modifs"
+#+END_SRC
+
+* Commencer un projet caml
+Création d'un fichier astro.ml
+#+BEGIN_SRC caml
+(* Graphics.close_graph ();; *)
+Graphics.open_graph " 350x350";;
+
+print_string "          *** космонавт ***\n";;
+print_string "       Salut jeune astronaute\n";;
+#+END_SRC
+
+À compiler comme toplevel comme ceci:
+#+BEGIN_SRC sh
+ocamlmktop graphics.cma astro.ml -o FlappyCandyAstroCrush
+#+END_SRC
+
+Rajoutons un fichier d'images du prog:
+#+BEGIN_SRC sh
+git add images50.ml
+git commit -m "ajout fichier images"
+#+END_SRC
+
+Apprenons à afficher une image. Dans un fichier dessiner.ml.
+
+#+BEGIN_SRC ocaml
+let dimensions m =
+let h = Array.length m in
+let l = Array.length m.(0) in
+  (l, h);;
+
+
+let decompose c =
+  let b = c mod 256 in
+  let v = (c / 256) mod 256 in
+  let r = (c / 65536) mod 256 in
+(r,v,b);;
+
+let melanger c1 c2 op =
+  let (r1,v1,b1) = decompose c1 in
+  let (r2,v2,b2) = decompose c2 in
+  let mix a b op =
+    (op * a + (255 - op * b))/255 in
+  let r3 = mix r1 r2 op in
+  let v3 = mix v1 v2 op in
+  let b3 = mix b1 b2 op in
+  Graphics.rgb r3 v3 b3;;
+
+
+let arraymap2 f ta tb =
+let g i b = f ta.(i) b in
+Array.mapi g tb;;
+
+let matrixmap2 f =
+arraymap2 (arraymap2 f);;
+
+let dessiner_image img x y =
+  let (largeur,hauteur) = dimensions img in
+  let fond = Graphics.dump_image (Graphics.get_image x y largeur hauteur) in
+  let melanger_tordu (c1,o) c2 = melanger c1 c2 o in
+  Graphics.draw_image (Graphics.make_image (matrixmap2 melanger_tordu img fond)) x y;;
+#+END_SRC

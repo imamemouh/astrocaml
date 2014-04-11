@@ -1,4 +1,4 @@
-#+TITLE: Tutoriel de démarrage du devoir de programmation
+#+TITLE: Tutoriel de démarrage du devoir de programmation fonctionnelle
 #+AUTHOR:    Pierre Boudes
 #+EMAIL:     boudes@univ-paris13.fr
 #+LANGUAGE:  fr

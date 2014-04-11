@@ -127,8 +127,5 @@ cardinaux) utiles à la fois pour l'interprète et le graphisme.
 type direction = N | S | E | O;;
 #+END_SRC
 
-On reprend un de nos anciens interprètes pour l'ajouter au projet.
-
-#+BEGIN_SRC
-cp ../interprete.ml ./
-#+END_SRC
+On rajoute un petit interpète maison (à augmenter). Puis on commencer
+à améliorer le jeu, voir directement dans les logs git ...

@@ -108,3 +108,8 @@ let dessiner_image img x y =
   let melanger_tordu (c1,o) c2 = melanger c1 c2 o in
   Graphics.draw_image (Graphics.make_image (matrixmap2 melanger_tordu img fond)) x y;;
 #+END_SRC
+
+#+BEGIN_SRC sh
+git add dessiner.ml
+git commit -a -m "ajout de la fonction de dessin d'images"
+#+END_SRC

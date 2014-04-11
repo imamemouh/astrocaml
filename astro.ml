@@ -22,11 +22,6 @@ let afficher_mobiles () =
   List.iter (afficher Images.star) etoiles;
   afficher_perso ();;
 
-print_string "          *** космонавт ***\n";;
-print_string "       Salut jeune astronaute\n";;
-print_string "\n";;
-(* TODO trouver le nom de l'auteur *)
-print_string " Crédit image : lostgarden.com\n";;
 
 let deplacer direction =
   let () = match direction with
@@ -39,3 +34,11 @@ let deplacer direction =
   afficher_mobiles ();;
 
 let jouer p = Interprete.run p deplacer;;
+
+
+print_string "          *** космонавт ***\n";;
+print_string "       Salut jeune astronaute\n";;
+print_string "\n";;
+(* TODO trouver le nom de l'auteur *)
+print_string " Crédit image : lostgarden.com\n";;
+afficher_mobiles ();;

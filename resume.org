@@ -1,0 +1,13 @@
+* Mise en place d'un depot git
+** en local
+création du répertoire pour initialisation de git
+#+BEGIN_SRC
+mkdir tuto
+cd tuto
+git init
+#+END_SRC
+** par github
+#+BEGIN_SRC
+git clone <urldudepot>
+#+END_SRC
+*

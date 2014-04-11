@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+<title>Tutoriel de démarrage du devoir de programmation</title>
+<!-- 2014-04-11 Ven 23:12 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Pierre Boudes" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style type="text/css">pre.src {color: #CCCCCC;background-color: #666666;}body {margin-left: 20px;margin-right: 20px;}</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Tutoriel de démarrage du devoir de programmation</h1>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Mise en place d'un dépôt git</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> En local</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+création du répertoire et initialisation de git
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">mkdir tuto
+<span style="color: #DCDCCC; font-weight: bold;">cd</span> tuto
+git init
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> ou  bien pour un dépôt créé depuis github (recommandé)</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+
+<pre class="src src-sh">git clone &lt;urldudepot&gt;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Utilisation basique de git</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Ajout d'un fichier</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+
+<pre class="src src-sh">git add resume.org
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Afficher le statut actuel du dépôt</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Où l'on voit que le fichier a bien été ajouté pour faire partie du
+prochain <i>commit</i>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git status
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Réaliser un commit pour sauvegarder une étape</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Pour avoir un peu d'aide.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git help commit
+</pre>
+</div>
+
+<p>
+La commande commit permet de valider nos modifications et de leur
+associer un message explicatif.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git commit -m <span style="color: #CC9393;">"Ajout d'un compte-rendu"</span>
+</pre>
+</div>
+<p>
+Git nous informe alors du résultat de notre commande (un fichier modifié).
+</p>
+<pre class="example">
+[master (root-commit) 2bb1fab] Ajout d'un compte-rendu
+1 files changed, 13 insertions(+), 0 deletions(-)
+create mode 100644 resume.org
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Vérifier les dernières modifications</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="org-src-container">
+
+<pre class="src src-sh">git log
+</pre>
+</div>
+
+<p>
+Commit de toutes les modifications sur les fichiers précédemment ajoutés.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git commit -a -m <span style="color: #CC9393;">"derni&#232;res modifs"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Commencer un projet caml</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Création d'un fichier astro.ml
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ocaml"><span style="color: #5F7F5F;">(* </span><span style="color: #7F9F7F;">Graphics.close_graph ();; </span><span style="color: #5F7F5F;">*)</span>
+<span style="color: #7CB8BB;">Graphics</span>.open_graph <span style="color: #CC9393;">" 350x350"</span><span style="color: #f0e68c;">;;</span>
+
+print_string <span style="color: #CC9393;">"          *** &#1082;&#1086;&#1089;&#1084;&#1086;&#1085;&#1072;&#1074;&#1090; ***\n"</span><span style="color: #f0e68c;">;;</span>
+print_string <span style="color: #CC9393;">"       Salut jeune astronaute\n"</span><span style="color: #f0e68c;">;;</span>
+</pre>
+</div>
+
+<p>
+À compiler comme toplevel comme ceci:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">ocamlmktop graphics.cma astro.ml -o FlappyCandyAstroCrush
+</pre>
+</div>
+
+<p>
+Rajoutons un de nos fichiers d'images :
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git add images50.ml
+git commit -m <span style="color: #CC9393;">"ajout fichier images"</span>
+</pre>
+</div>
+
+<p>
+Et apprenons à afficher une image, dans un fichier dessiner.ml.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Le fichier dessiner.ml</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Nous manipulons les images sous forme de matrices (des tableaux de
+tableaux) dont les éléments ont soit des couleurs soit des paires
+couleur, opacité.
+</p>
+
+<p>
+On commence par une fonction pour récupérer les dimensions d'une
+matrice (hauteur et largeur).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ocaml"><span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">dimensions</span><span style="color: #DFAF8F;"> m </span><span style="color: #f0e68c;">=</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">h </span><span style="color: #f0e68c;">=</span> <span style="color: #7CB8BB;">Array</span>.length m <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">l </span><span style="color: #f0e68c;">=</span> <span style="color: #7CB8BB;">Array</span>.length m.<span style="color: #f0e68c;">(</span>0<span style="color: #f0e68c;">)</span> <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f0e68c;">(</span>l<span style="color: #f0e68c;">,</span> h<span style="color: #f0e68c;">);;</span>
+</pre>
+</div>
+
+<p>
+Le module Graphics permet de composer de nouvelles couleurs à partir
+de leurs composantes rouge verte et bleue (fonction Graphics.rgb).
+L'opération inverse n'est par contre pas fournie. Programmons la.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ocaml"><span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">decompose</span><span style="color: #DFAF8F;"> c </span><span style="color: #f0e68c;">=</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">b </span><span style="color: #f0e68c;">=</span> c <span style="color: #f0e68c;">mod</span> 256 <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">v </span><span style="color: #f0e68c;">=</span> <span style="color: #f0e68c;">(</span>c <span style="color: #f0e68c;">/</span> 256<span style="color: #f0e68c;">)</span> <span style="color: #f0e68c;">mod</span> 256 <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">r </span><span style="color: #f0e68c;">=</span> <span style="color: #f0e68c;">(</span>c <span style="color: #f0e68c;">/</span> 65536<span style="color: #f0e68c;">)</span> <span style="color: #f0e68c;">mod</span> 256 <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f0e68c;">(</span>r<span style="color: #f0e68c;">,</span>v<span style="color: #f0e68c;">,</span>b<span style="color: #f0e68c;">);;</span>
+</pre>
+</div>
+
+<p>
+On s'en sert pour mélanger deux couleurs selon un certain niveau
+d'opacité allant de 255 (opaque) à 0 (transparent). Il y a un bug dans
+le code suivant, saurez-vous le trouver ? (Il est corrigé dans le dépôt).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ocaml"><span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">melanger</span><span style="color: #DFAF8F;"> c1 c2 op </span><span style="color: #f0e68c;">=</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #f0e68c;">(</span><span style="color: #DFAF8F;">r1</span><span style="color: #f0e68c;">,</span><span style="color: #DFAF8F;">v1</span><span style="color: #f0e68c;">,</span><span style="color: #DFAF8F;">b1</span><span style="color: #f0e68c;">)</span><span style="color: #DFAF8F;"> </span><span style="color: #f0e68c;">=</span> decompose c1 <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #f0e68c;">(</span><span style="color: #DFAF8F;">r2</span><span style="color: #f0e68c;">,</span><span style="color: #DFAF8F;">v2</span><span style="color: #f0e68c;">,</span><span style="color: #DFAF8F;">b2</span><span style="color: #f0e68c;">)</span><span style="color: #DFAF8F;"> </span><span style="color: #f0e68c;">=</span> decompose c2 <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">mix</span><span style="color: #DFAF8F;"> a b op </span><span style="color: #f0e68c;">=</span>
+    <span style="color: #f0e68c;">(</span>op <span style="color: #f0e68c;">*</span> a <span style="color: #f0e68c;">+</span> <span style="color: #f0e68c;">(</span>255 <span style="color: #f0e68c;">-</span> op <span style="color: #f0e68c;">*</span> b<span style="color: #f0e68c;">))/</span>255 <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">r3 </span><span style="color: #f0e68c;">=</span> mix r1 r2 op <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">v3 </span><span style="color: #f0e68c;">=</span> mix v1 v2 op <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">b3 </span><span style="color: #f0e68c;">=</span> mix b1 b2 op <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #7CB8BB;">Graphics</span>.rgb r3 v3 b3<span style="color: #f0e68c;">;;</span>
+</pre>
+</div>
+
+<p>
+La fonction matrixmap2 que nous avons construit en TP
+s'obtient très simplement comme ceci.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ocaml"><span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">arraymap2</span><span style="color: #DFAF8F;"> f ta tb </span><span style="color: #f0e68c;">=</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">g</span><span style="color: #DFAF8F;"> i b </span><span style="color: #f0e68c;">=</span> f ta.<span style="color: #f0e68c;">(</span>i<span style="color: #f0e68c;">)</span> b <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #7CB8BB;">Array</span>.mapi g tb<span style="color: #f0e68c;">;;</span>
+
+<span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">matrixmap2</span><span style="color: #DFAF8F;"> f </span><span style="color: #f0e68c;">=</span>
+  arraymap2 <span style="color: #f0e68c;">(</span>arraymap2 f<span style="color: #f0e68c;">);;</span>
+</pre>
+</div>
+
+<p>
+Forts de la fonction melanger et de matrixmap2, il est facile d'écrire le code permettant de
+dessiner une image en tenant compte de la transparence.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ocaml"><span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">dessiner_image</span><span style="color: #DFAF8F;"> img x y </span><span style="color: #f0e68c;">=</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #f0e68c;">(</span><span style="color: #DFAF8F;">largeur</span><span style="color: #f0e68c;">,</span><span style="color: #DFAF8F;">hauteur</span><span style="color: #f0e68c;">)</span><span style="color: #DFAF8F;"> </span><span style="color: #f0e68c;">=</span> dimensions img <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #DFAF8F;">fond </span><span style="color: #f0e68c;">=</span> <span style="color: #7CB8BB;">Graphics</span>.dump_image <span style="color: #f0e68c;">(</span><span style="color: #7CB8BB;">Graphics</span>.get_image x y largeur hauteur<span style="color: #f0e68c;">)</span> <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #f5deb3; font-weight: bold;">let</span> <span style="color: #93E0E3;">melanger_tordu</span><span style="color: #DFAF8F;"> </span><span style="color: #f0e68c;">(</span><span style="color: #DFAF8F;">c1</span><span style="color: #f0e68c;">,</span><span style="color: #DFAF8F;">o</span><span style="color: #f0e68c;">)</span><span style="color: #DFAF8F;"> c2 </span><span style="color: #f0e68c;">=</span> melanger c1 c2 o <span style="color: #f5deb3; font-weight: bold;">in</span>
+  <span style="color: #7CB8BB;">Graphics</span>.draw_image <span style="color: #f0e68c;">(</span><span style="color: #7CB8BB;">Graphics</span>.make_image <span style="color: #f0e68c;">(</span>matrixmap2 melanger_tordu img fond<span style="color: #f0e68c;">))</span> x y<span style="color: #f0e68c;">;;</span>
+</pre>
+</div>
+
+<p>
+Ceci termine le fichier dessiner.ml. On l'ajoute au dépôt.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git add dessiner.ml
+git commit -a -m <span style="color: #CC9393;">"ajout de la fonction de dessin d'images"</span>
+</pre>
+</div>
+
+<p>
+Le premier essai révèle un bug (notamment visible au fait que la
+transparence totale ne survient pas). On le corrige facilement.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">git commit dessiner.ml -m <span style="color: #CC9393;">"correction d'un bug dans le calcul de la transparence"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Le fichier directions.ml</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Comme les directions (les quatre points
+cardinaux) utilisées dans les déplacements sont nécessaires
+à la fois pour l'interprète et pour les graphismes, on les place dans
+un module à part.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-ocaml"><span style="color: #5F7F5F;">(* </span><span style="color: #7F9F7F;">direction.ml </span><span style="color: #5F7F5F;">*)</span>
+<span style="color: #f5deb3; font-weight: bold;">type</span> <span style="color: #7CB8BB;">direction </span><span style="color: #f0e68c;">=</span> N <span style="color: #f0e68c;">|</span> S <span style="color: #f0e68c;">|</span> E <span style="color: #f0e68c;">|</span> O<span style="color: #f0e68c;">;;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Un premier interprète pour nos tests (le fichier interprete.ml)</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+On rajoute un petit interpète maison (à augmenter à partir ce que vous
+avez appris à faire en TD/TP). Les instructions sont minimales : se
+déplacer dans les quatres directions, regrouper les instructions en blocs.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Retour au fichier principal (astro.ml)</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Puis on commence
+à améliorer le jeu, voir directement dans les logs git, en particulier
+tout le fichier astro.ml.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Compilation complète</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+La compilation se fait alors comme ceci:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">ocamlmktop directions.cmo interprete.cmo graphics.cma images50.cmo dessiner.ml <span style="color: #CC9393;">\</span>
+astro.ml -o FlappyCandyAstroCrush
+</pre>
+</div>
+<p>
+Il est nécessaire de donner les modules dans l'ordre de
+leur utilisation (il faut respecter l'ordre de dépendance entre
+modules). On peut donner à cette ligne de commande les modules
+compilés, ou bien les fichiers sources l'un et l'autre fonctionne pour
+chaque fichier.
+</p>
+
+<p>
+À l'ouverture de notre REPL (ou top-level) OCaml personnalisé, il
+reste malheureusement à ouvrir deux modules pour peupler l'espace de
+nom racine avec les types de l'interprète (et tout particulièrement la syntaxe du
+mini-langage) et pour donner accès à la
+fonction de jeu. Après seulement on peut commencer à jouer.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ocaml"><span style="color: #f5deb3; font-weight: bold;">open</span> <span style="color: #7CB8BB;">Interprete</span><span style="color: #f0e68c;">;;</span>
+<span style="color: #f5deb3; font-weight: bold;">open</span> <span style="color: #7CB8BB;">Astro</span><span style="color: #f0e68c;">;;</span>
+jouer <span style="color: #f0e68c;">(</span>Bloc <span style="color: #f0e68c;">[</span>Est<span style="color: #f0e68c;">;</span> Est<span style="color: #f0e68c;">;</span> Nord<span style="color: #f0e68c;">]);;</span>
+jouer <span style="color: #f0e68c;">(</span>Bloc <span style="color: #f0e68c;">[</span>Ouest<span style="color: #f0e68c;">;</span> Nord<span style="color: #f0e68c;">;]);;</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Auteur: Pierre Boudes</p>
+<p class="date">Created: 2014-04-11 Ven 23:12</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

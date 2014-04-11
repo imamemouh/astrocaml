@@ -1,56 +1,72 @@
+#+TITLE: Tutoriel de démarrage du devoir de programmation
+#+AUTHOR:    Pierre Boudes
+#+EMAIL:     boudes@univ-paris13.fr
+#+LANGUAGE:  fr
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS:[11pt,a4paper]
+#+LaTeX_HEADER: \usepackage[margin=2cm]{geometry}
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc toc:nil
+#+HTML_HEAD: <style type="text/css">pre.src {color: #CCCCCC;background-color: #666666;}body {margin-left: 20px;margin-right: 20px;}</style>
 
 
-* Mise en place d'un depot git
-** en local
-création du répertoire pour initialisation de git
+* Mise en place d'un dépôt git
+** En local
+création du répertoire et initialisation de git
 #+BEGIN_SRC sh
 mkdir tuto
 cd tuto
 git init
 #+END_SRC
-** par github
+** ou  bien pour un dépôt créé depuis github (recommandé)
 #+BEGIN_SRC sh
 git clone <urldudepot>
 #+END_SRC
 
 * Utilisation basique de git
-** ajout d'un fichier
+** Ajout d'un fichier
 #+BEGIN_SRC sh
 git add resume.org
 #+END_SRC
-** afficher le statut actuel du dépôt
+** Afficher le statut actuel du dépôt
+Où l'on voit que le fichier a bien été ajouté pour faire partie du
+prochain /commit/.
 #+BEGIN_SRC sh
 git status
 #+END_SRC
 
-** réaliser un commit pour sauvegarder une étape
+
+** Réaliser un commit pour sauvegarder une étape
 Pour avoir un peu d'aide.
 #+BEGIN_SRC sh
 git help commit
 #+END_SRC
 
+La commande commit permet de valider nos modifications et de leur
+associer un message explicatif.
 #+BEGIN_SRC sh
-git commit -m "envoie du résumé"
+git commit -m "Ajout d'un compte-rendu"
 #+END_SRC
-
-#+RESULTS:
-[master (root-commit) 2bb1fab] envoi     du             résumé
-1       files         changed, 13         insertions(+),      0 deletions(-)
-create  mode          100644   resume.org
+Git nous informe alors du résultat de notre commande (un fichier modifié).
+#+BEGIN_EXAMPLE
+[master (root-commit) 2bb1fab] Ajout d'un compte-rendu
+1 files changed, 13 insertions(+), 0 deletions(-)
+create mode 100644 resume.org
+#+END_EXAMPLE
 
 ** Vérifier les dernières modifications
 #+BEGIN_SRC sh
 git log
 #+END_SRC
 
-Commit toutes les modifications sur les fichiers précédemment ajoutés.
+Commit de toutes les modifications sur les fichiers précédemment ajoutés.
 #+BEGIN_SRC sh
 git commit -a -m "dernières modifs"
 #+END_SRC
 
 * Commencer un projet caml
 Création d'un fichier astro.ml
-#+BEGIN_SRC caml
+#+BEGIN_SRC ocaml
 (* Graphics.close_graph ();; *)
 Graphics.open_graph " 350x350";;
 
@@ -63,27 +79,43 @@ print_string "       Salut jeune astronaute\n";;
 ocamlmktop graphics.cma astro.ml -o FlappyCandyAstroCrush
 #+END_SRC
 
-Rajoutons un fichier d'images du prog:
+Rajoutons un de nos fichiers d'images :
 #+BEGIN_SRC sh
 git add images50.ml
 git commit -m "ajout fichier images"
 #+END_SRC
 
-Apprenons à afficher une image. Dans un fichier dessiner.ml.
+Et apprenons à afficher une image, dans un fichier dessiner.ml.
 
+** Le fichier dessiner.ml
+Nous manipulons les images sous forme de matrices (des tableaux de
+tableaux) dont les éléments ont soit des couleurs soit des paires
+couleur, opacité.
+
+On commence par une fonction pour récupérer les dimensions d'une
+matrice (hauteur et largeur).
 #+BEGIN_SRC ocaml
 let dimensions m =
-let h = Array.length m in
-let l = Array.length m.(0) in
+  let h = Array.length m in
+  let l = Array.length m.(0) in
   (l, h);;
+#+END_SRC
 
-
+Le module Graphics permet de composer de nouvelles couleurs à partir
+de leurs composantes rouge verte et bleue (fonction Graphics.rgb).
+L'opération inverse n'est par contre pas fournie. Programmons la.
+#+BEGIN_SRC ocaml
 let decompose c =
   let b = c mod 256 in
   let v = (c / 256) mod 256 in
   let r = (c / 65536) mod 256 in
-(r,v,b);;
+  (r,v,b);;
+#+END_SRC
 
+On s'en sert pour mélanger deux couleurs selon un certain niveau
+d'opacité allant de 255 (opaque) à 0 (transparent). Il y a un bug dans
+le code suivant, saurez-vous le trouver ? (Il est corrigé dans le dépôt).
+#+BEGIN_SRC ocaml
 let melanger c1 c2 op =
   let (r1,v1,b1) = decompose c1 in
   let (r2,v2,b2) = decompose c2 in
@@ -93,15 +125,22 @@ let melanger c1 c2 op =
   let v3 = mix v1 v2 op in
   let b3 = mix b1 b2 op in
   Graphics.rgb r3 v3 b3;;
+#+END_SRC
 
-
+La fonction matrixmap2 que nous avons construit en TP
+s'obtient très simplement comme ceci.
+#+BEGIN_SRC ocaml
 let arraymap2 f ta tb =
-let g i b = f ta.(i) b in
-Array.mapi g tb;;
+  let g i b = f ta.(i) b in
+  Array.mapi g tb;;
 
 let matrixmap2 f =
-arraymap2 (arraymap2 f);;
+  arraymap2 (arraymap2 f);;
+#+END_SRC
 
+Forts de la fonction melanger et de matrixmap2, il est facile d'écrire le code permettant de
+dessiner une image en tenant compte de la transparence.
+#+BEGIN_SRC ocaml
 let dessiner_image img x y =
   let (largeur,hauteur) = dimensions img in
   let fond = Graphics.dump_image (Graphics.get_image x y largeur hauteur) in
@@ -109,23 +148,59 @@ let dessiner_image img x y =
   Graphics.draw_image (Graphics.make_image (matrixmap2 melanger_tordu img fond)) x y;;
 #+END_SRC
 
+Ceci termine le fichier dessiner.ml. On l'ajoute au dépôt.
 #+BEGIN_SRC sh
 git add dessiner.ml
 git commit -a -m "ajout de la fonction de dessin d'images"
 #+END_SRC
 
-Bugfix.
+Le premier essai révèle un bug (notamment visible au fait que la
+transparence totale ne survient pas). On le corrige facilement.
 #+BEGIN_SRC sh
 git commit dessiner.ml -m "correction d'un bug dans le calcul de la transparence"
 #+END_SRC
 
-Création d'un module à part pour les directions (les quatre points
-cardinaux) utiles à la fois pour l'interprète et le graphisme.
+** Le fichier directions.ml
+Comme les directions (les quatre points
+cardinaux) utilisées dans les déplacements sont nécessaires
+à la fois pour l'interprète et pour les graphismes, on les place dans
+un module à part.
 
 #+BEGIN_SRC ocaml
-(* direction.mml *)
+(* direction.ml *)
 type direction = N | S | E | O;;
 #+END_SRC
+** Un premier interprète pour nos tests (le fichier interprete.ml)
+On rajoute un petit interpète maison (à augmenter à partir ce que vous
+avez appris à faire en TD/TP). Les instructions sont minimales : se
+déplacer dans les quatres directions, regrouper les instructions en blocs.
 
-On rajoute un petit interpète maison (à augmenter). Puis on commencer
-à améliorer le jeu, voir directement dans les logs git ...
+** Retour au fichier principal (astro.ml)
+
+Puis on commence
+à améliorer le jeu, voir directement dans les logs git, en particulier
+tout le fichier astro.ml.
+
+** Compilation complète
+La compilation se fait alors comme ceci:
+#+BEGIN_SRC sh
+ocamlmktop directions.cmo interprete.cmo graphics.cma images50.cmo dessiner.ml \
+astro.ml -o FlappyCandyAstroCrush
+#+END_SRC
+Il est nécessaire de donner les modules dans l'ordre de
+leur utilisation (il faut respecter l'ordre de dépendance entre
+modules). On peut donner à cette ligne de commande les modules
+compilés, ou bien les fichiers sources l'un et l'autre fonctionne pour
+chaque fichier.
+
+ À l'ouverture de notre REPL (ou top-level) OCaml personnalisé, il
+ reste malheureusement à ouvrir deux modules pour peupler l'espace de
+ nom racine avec les types de l'interprète (et tout particulièrement la syntaxe du
+ mini-langage) et pour donner accès à la
+ fonction de jeu. Après seulement on peut commencer à jouer.
+#+BEGIN_SRC ocaml
+ open Interprete;;
+ open Astro;;
+ jouer (Bloc [Est; Est; Nord]);;
+ jouer (Bloc [Ouest; Nord;]);;
+#+END_SRC

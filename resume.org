@@ -113,3 +113,22 @@ let dessiner_image img x y =
 git add dessiner.ml
 git commit -a -m "ajout de la fonction de dessin d'images"
 #+END_SRC
+
+Bugfix.
+#+BEGIN_SRC sh
+git commit dessiner.ml -m "correction d'un bug dans le calcul de la transparence"
+#+END_SRC
+
+Création d'un module à part pour les directions (les quatre points
+cardinaux) utiles à la fois pour l'interprète et le graphisme.
+
+#+BEGIN_SRC ocaml
+(* direction.mml *)
+type direction = N | S | E | O;;
+#+END_SRC
+
+On reprend un de nos anciens interprètes pour l'ajouter au projet.
+
+#+BEGIN_SRC
+cp ../interprete.ml ./
+#+END_SRC

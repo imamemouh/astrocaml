@@ -1,5 +1,3 @@
-
-
 let dimensions m =
 let h = Array.length m in
 let l = Array.length m.(0) in
@@ -16,7 +14,8 @@ let melanger c1 c2 op =
   let (r1,v1,b1) = decompose c1 in
   let (r2,v2,b2) = decompose c2 in
   let mix a b op =
-    (op * a + (255 - op * b))/255 in
+    (op * a + ((255 - op) * b))/255
+  in
   let r3 = mix r1 r2 op in
   let v3 = mix v1 v2 op in
   let b3 = mix b1 b2 op in

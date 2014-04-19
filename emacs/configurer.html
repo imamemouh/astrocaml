@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+<title>Configurer et utiliser Emacs (en licence)</title>
+<!-- 2014-04-20 Dim 00:57 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Pierre Boudes" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<style type="text/css">pre.src {color: #CCCCCC;background-color: #666666;}body {margin-left: 20px;margin-right: 20px;}</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Configurer et utiliser Emacs (en licence)</h1>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Configuration Emacs</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Fichier d'initialisation</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Avant de commencer à configurer emacs, il faut choisir dans quel
+fichier placer son programme d'initialisation. Il peut se trouver dans
+un fichier <code>~/.emacs</code>, <code>~/.emacs.el</code>, ou <code>~/.emacs.d/init.el</code>. Comme
+nous aurons de toute façon besoin du répertoire <code>~/.emacs.d/</code> autant
+choisir la dernière solution ( <code>~/.emacs.d/init.el</code>), ainsi tous les
+fichiers utiles seront dans un même répertoire.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Fichier de personnalisation</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Au cours de l'utilisation d'Emacs vous pouvez personnaliser de
+nombreux éléments et sauvegarder ces modifications de façon
+permanente, pour de futures sessions. Par défaut Emacs va enregistrer
+ces modifications dans votre fichier d'initialisation. Vous pouvez
+préférer que Emacs ne modifie pas votre fichier <code>init.el</code> et
+sauvegarde plutôt ces informations de personnalisation dans un fichier
+à part (habituellement <code>~/.emacs.d/custom.el</code>). Il vous suffit pour
+cela de placer les lignes suivantes à la fin de votre fichier <code>init.el</code>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">fichiers de personnalisation s&#233;par&#233;</span>
+<span style="color: #7f7f7f;">(</span>setq custom-file  <span style="color: #CC9393;">"~/.emacs.d/custom.el"</span><span style="color: #7f7f7f;">)</span>
+<span style="color: #7f7f7f;">(</span>load custom-file<span style="color: #7f7f7f;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Ergonomie</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Commençons par régler quelques soucis d'ergonomie avec Emacs. Toutes
+les lignes suivantes sont à ajouter (si vous le souhaitez) dans votre fichier <code>init.el</code>.
+</p>
+
+<p>
+La chose la plus déroutante avec Emacs est sans doute que lorsque du
+texte est sélectionné et que l'on tape une touche, le texte ne soit
+pas remplacé par le caractère tapé (ou simplement effacé si la touche
+tapée est la touche d'effacement). Réglons cela.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">Ergonomie</span>
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">effacer la s&#233;lection en tapant</span>
+<span style="color: #7f7f7f;">(</span>delete-selection-mode t<span style="color: #7f7f7f;">)</span>
+</pre>
+</div>
+
+<p>
+Suivent quelques petites réglages de l'apparence qui se passent de commentaires.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">pas de page d'accueil</span>
+<span style="color: #7f7f7f;">(</span>setq inhibit-startup-screen t<span style="color: #7f7f7f;">)</span>
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">pas de barre avec icones</span>
+<span style="color: #7f7f7f;">(</span>tool-bar-mode -1<span style="color: #7f7f7f;">)</span>
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">num&#233;ros de lignes dans la marge (emacs 23)</span>
+<span style="color: #7f7f7f;">(</span>global-linum-mode 1<span style="color: #7f7f7f;">)</span>
+<span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">conserver la liste des fichiers r&#233;cemment ouverts</span>
+<span style="color: #7f7f7f;">(</span>recentf-mode 1<span style="color: #7f7f7f;">)</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> CUA mode</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+La commande suivante force Emacs à utiliser les raccourcis standards
+du copier/couper/coller/annuler. Par exemple, vous pourrez copier du
+texte en utilisant le raccourci <code>Ctrl-c</code> et le coller avec <code>Ctrl-v</code>,
+raccourcis que l'on notera simplement <code>C-c</code> et  <code>C-v</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">C-x C-c C-v C-z pour couper copier coller annuler</span>
+<span style="color: #7f7f7f;">(</span>cua-mode 1<span style="color: #7f7f7f;">)</span>
+</pre>
+</div>
+
+<p>
+Vous pouvez aussi essayer <code>C-enter</code> pour les sélections en rectangle.
+</p>
+
+<p>
+Le <code>cua-mode</code> est bien pour rester homogène avec les autres logiciels.
+Mais c'est vain, aucun logiciel n'égalant Emacs <code>^^</code> (ce qu'il faut
+comprendre par : je ne compte plus le nombre de fois où je déclenche
+des catastrophes dans d'autres logiciels en voulant y utiliser des
+raccourcis Emacs). Ça n'est pas non plus sans défaut car cela pourra
+vous obliger à redéfinir des raccourcis d'autres commandes dont vous
+pourrez avoir besoin plus tard.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="section-number-4">1.3.2</span> Coller multiple</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Les raccourcis Emacs
+habituels seraient <code>M-w</code> (notation Emacs pour <code>Alt-w</code>) pour copier,
+<code>C-w</code> pour couper et <code>C-y</code> pour coller. Il en reste un qui n'a pas
+d'équivalent en <code>cua-mode</code>: <code>M-y</code> (<code>Alt-y</code>). Celui-ci s'applique juste
+après avoir collé du texte et son effet est de changer le texte qui
+vennait d'être collé par l'avant-dernier texte a avoir été copié, puis
+l'avant-avant-dernier etc. C'est très pratique, par exemple pour copier
+plusieurs blocs de texte d'un endroit à un autre sans faire tous les
+aller-retours. Vous pouvez vous servir de ce raccourci <code>M-y</code> même si
+le cua-mode est activé et que vous venez de coller avec <code>C-v</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="section-number-4">1.3.3</span> Annuler</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+Les annulations (<code>C-z</code> ou <code>C-_</code>) permettent de remonter le temps assez
+loin. Par contre, annuler une annulation peut sembler parfois un peu
+compliqué. La marche à suivre est pourtant très simple, il suffit de
+taper un peu de texte (un caractère fera l'affaire) pour que la série
+d'annulation suivante défasse les dernières actions, y compris lorsque
+ces dernières actions étaient des annulations.
+</p>
+
+<p>
+Imaginons que l'on voulait annuler 10 actions, et que l'on a tapé 12
+fois la commande <code>C-z</code>. On pourrait dire que l'on a trop remonté le
+temps. C'est deux annulations de trop que l'on aimerait annuler à leur
+tour. Taper deux fois <code>C-z</code> serait une mauvaise idée, cela ne
+servirait qu'à remonter le temps encore plus loin. Il suffit de
+signaler à Emacs qu'on a fini de remonter le temps en tapant autre
+chose que <code>C-z</code> puis d'annuler cette dernière action et la
+précédédente et encore la précédente. Ceci nous raménera au passé dans
+lequel nous n'avions tapé que 10 fois <code>C-z</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Programmation C</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">indentation du C &#224; la fa&#231;on de Bjarne Stroustrup</span>
+<span style="color: #7f7f7f;">(</span>add-hook 'c-mode-common-hook
+          <span style="color: #7f7f7f;">(</span><span style="color: #F0DFAF; font-weight: bold;">lambda</span> <span style="color: #7f7f7f;">()</span>
+            <span style="color: #7f7f7f;">(</span>c-set-style <span style="color: #CC9393;">"stroustrup"</span><span style="color: #7f7f7f;">)))</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Caml avec Tuareg</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Si vous avez Emacs 23, pour installer tuareg le plus simple est sans
+doute de copier mon
+<code>~boudes/pub/.emacs.d/tuareg-2.0.8</code>  (des salles TP)  dans votre
+<code>/.emacs.d/</code> puis d'ajouter la ligne suivante à votre <code>init.el</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: #5F7F5F;">;; </span><span style="color: #7F9F7F;">Tuareg pour emacs</span>
+ <span style="color: #7f7f7f;">(</span>load <span style="color: #CC9393;">"~/.emacs.d/tuareg-2.0.8/tuareg-site-file"</span><span style="color: #7f7f7f;">)</span>
+</pre>
+</div>
+
+<p>
+Si vous utilisez Emacs 24 il est beaucoup plus simple d'utiliser le
+gestionnaire de paquets.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> Gestionnaire de paquets (Emacs 24)</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Un gestionnaire de paquets emacs, dans emacs, pour emacs 24. Tout le
+monde l'utilise, ça simplifie l'installation de nouveau paquets.
+</p>
+
+<p>
+Par contre avec la multiplication de ce type gestionnaires de paquets
+de niveau application il y a des risques de conflit avec le
+gestionnaire de paquets de niveau système (pour Emacs la cohabitation
+est bien gérée).
+</p>
+
+
+<p>
+À ajouter dans le <code>init.el</code>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp"><span style="color: #5F7F5F;">;;;</span>
+<span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">ELPA/MELPA</span>
+<span style="color: #5F7F5F;">;;; </span><span style="color: #7F9F7F;">M-x list-packages</span>
+<span style="color: #5F7F5F;">;;;</span>
+<span style="color: #7f7f7f;">(</span>setq package-archives '<span style="color: #7f7f7f;">((</span><span style="color: #CC9393;">"gnu"</span> . <span style="color: #CC9393;">"http://elpa.gnu.org/packages/"</span><span style="color: #7f7f7f;">)</span>
+                         <span style="color: #7f7f7f;">(</span><span style="color: #CC9393;">"marmalade"</span> . <span style="color: #CC9393;">"http://marmalade-repo.org/packages/"</span><span style="color: #7f7f7f;">)</span>
+                         <span style="color: #7f7f7f;">(</span><span style="color: #CC9393;">"melpa"</span> . <span style="color: #CC9393;">"http://melpa.milkbox.net/packages/"</span><span style="color: #7f7f7f;">)))</span>
+</pre>
+</div>
+
+<p>
+Pour installer tuareg avec ce gestionnaire de paquets, dans Emacs
+taper <code>M-x list-packages</code> (c'est à dire <code>Alt-x</code> suivi de la saisie :
+<code>list-packages</code>) puis <code>C-s</code> (c'est à dire <code>Ctrl-s</code>) <code>tuareg</code>, puis
+<code>C-s</code> jusqu'à trouver le paquet tuareg (taper ? pour afficher la
+description du paquet). Lorsque vous avez trouvé, pour installer le
+paquet sur la ligne sélectionnée, taper i puis x.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Auteur: Pierre Boudes</p>
+<p class="date">Created: 2014-04-20 Dim 00:57</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

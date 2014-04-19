@@ -1,0 +1,167 @@
+#+TITLE: Configurer et utiliser Emacs (en licence)
+#+AUTHOR:    Pierre Boudes
+#+EMAIL:     boudes@univ-paris13.fr
+#+LANGUAGE:  fr
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS:[11pt,a4paper]
+#+LaTeX_HEADER: \usepackage[margin=2cm]{geometry}
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc toc:nil
+#+HTML_HEAD: <style type="text/css">pre.src {color: #CCCCCC;background-color: #666666;}body {margin-left: 20px;margin-right: 20px;}</style>
+
+
+* Configuration Emacs
+** Fichier d'initialisation
+Avant de commencer à configurer emacs, il faut choisir dans quel
+fichier placer son programme d'initialisation. Il peut se trouver dans
+un fichier ~~/.emacs~, ~~/.emacs.el~, ou ~~/.emacs.d/init.el~. Comme
+nous aurons de toute façon besoin du répertoire ~~/.emacs.d/~ autant
+choisir la dernière solution ( ~~/.emacs.d/init.el~), ainsi tous les
+fichiers utiles seront dans un même répertoire.
+
+** Fichier de personnalisation
+
+Au cours de l'utilisation d'Emacs vous pouvez personnaliser de
+nombreux éléments et sauvegarder ces modifications de façon
+permanente, pour de futures sessions. Par défaut Emacs va enregistrer
+ces modifications dans votre fichier d'initialisation. Vous pouvez
+préférer que Emacs ne modifie pas votre fichier ~init.el~ et
+sauvegarde plutôt ces informations de personnalisation dans un fichier
+à part (habituellement ~~/.emacs.d/custom.el~). Il vous suffit pour
+cela de placer les lignes suivantes à la fin de votre fichier ~init.el~.
+#+BEGIN_SRC elisp
+;; fichiers de personnalisation séparé
+(setq custom-file  "~/.emacs.d/custom.el")
+(load custom-file)
+#+END_SRC
+
+
+
+** Ergonomie
+
+Commençons par régler quelques soucis d'ergonomie avec Emacs. Toutes
+les lignes suivantes sont à ajouter (si vous le souhaitez) dans votre fichier ~init.el~.
+
+La chose la plus déroutante avec Emacs est sans doute que lorsque du
+texte est sélectionné et que l'on tape une touche, le texte ne soit
+pas remplacé par le caractère tapé (ou simplement effacé si la touche
+tapée est la touche d'effacement). Réglons cela.
+#+BEGIN_SRC elisp
+;;; Ergonomie
+;; effacer la sélection en tapant
+(delete-selection-mode t)
+#+END_SRC
+
+Suivent quelques petites réglages de l'apparence qui se passent de commentaires.
+#+BEGIN_SRC elisp
+;; pas de page d'accueil
+(setq inhibit-startup-screen t)
+;; pas de barre avec icones
+(tool-bar-mode -1)
+;; numéros de lignes dans la marge (emacs 23)
+(global-linum-mode 1)
+;; conserver la liste des fichiers récemment ouverts
+(recentf-mode 1)
+#+END_SRC
+
+*** CUA mode
+La commande suivante force Emacs à utiliser les raccourcis standards
+du copier/couper/coller/annuler. Par exemple, vous pourrez copier du
+texte en utilisant le raccourci ~Ctrl-c~ et le coller avec ~Ctrl-v~,
+raccourcis que l'on notera simplement ~C-c~ et  ~C-v~.
+
+#+Begin_SRC elisp
+;; C-x C-c C-v C-z pour couper copier coller annuler
+(cua-mode 1)
+#+END_SRC
+
+Vous pouvez aussi essayer ~C-enter~ pour les sélections en rectangle.
+
+Le ~cua-mode~ est bien pour rester homogène avec les autres logiciels.
+Mais c'est vain, aucun logiciel n'égalant Emacs ~^^~ (ce qu'il faut
+comprendre par : je ne compte plus le nombre de fois où je déclenche
+des catastrophes dans d'autres logiciels en voulant y utiliser des
+raccourcis Emacs). Ça n'est pas non plus sans défaut car cela pourra
+vous obliger à redéfinir des raccourcis d'autres commandes dont vous
+pourrez avoir besoin plus tard.
+
+*** Coller multiple
+Les raccourcis Emacs
+habituels seraient ~M-w~ (notation Emacs pour ~Alt-w~) pour copier,
+~C-w~ pour couper et ~C-y~ pour coller. Il en reste un qui n'a pas
+d'équivalent en ~cua-mode~: ~M-y~ (~Alt-y~). Celui-ci s'applique juste
+après avoir collé du texte et son effet est de changer le texte qui
+vennait d'être collé par l'avant-dernier texte a avoir été copié, puis
+l'avant-avant-dernier etc. C'est très pratique, par exemple pour copier
+plusieurs blocs de texte d'un endroit à un autre sans faire tous les
+aller-retours. Vous pouvez vous servir de ce raccourci ~M-y~ même si
+le cua-mode est activé et que vous venez de coller avec ~C-v~.
+
+*** Annuler
+Les annulations (~C-z~ ou ~C-_~) permettent de remonter le temps assez
+loin. Par contre, annuler une annulation peut sembler parfois un peu
+compliqué. La marche à suivre est pourtant très simple, il suffit de
+taper un peu de texte (un caractère fera l'affaire) pour que la série
+d'annulation suivante défasse les dernières actions, y compris lorsque
+ces dernières actions étaient des annulations.
+
+Imaginons que l'on voulait annuler 10 actions, et que l'on a tapé 12
+fois la commande ~C-z~. On pourrait dire que l'on a trop remonté le
+temps. C'est deux annulations de trop que l'on aimerait annuler à leur
+tour. Taper deux fois ~C-z~ serait une mauvaise idée, cela ne
+servirait qu'à remonter le temps encore plus loin. Il suffit de
+signaler à Emacs qu'on a fini de remonter le temps en tapant autre
+chose que ~C-z~ puis d'annuler cette dernière action et la
+précédédente et encore la précédente. Ceci nous raménera au passé dans
+lequel nous n'avions tapé que 10 fois ~C-z~.
+
+** Programmation C
+
+#+BEGIN_SRC elisp
+;; indentation du C à la façon de Bjarne Stroustrup
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (c-set-style "stroustrup")))
+#+END_SRC
+
+** Caml avec Tuareg
+Si vous avez Emacs 23, pour installer tuareg le plus simple est sans
+doute de copier mon
+~~boudes/pub/.emacs.d/tuareg-2.0.8~  (des salles TP)  dans votre
+~/.emacs.d/~ puis d'ajouter la ligne suivante à votre ~init.el~.
+
+#+BEGIN_SRC elisp
+;; Tuareg pour emacs
+ (load "~/.emacs.d/tuareg-2.0.8/tuareg-site-file")
+#+END_SRC
+
+Si vous utilisez Emacs 24 il est beaucoup plus simple d'utiliser le
+gestionnaire de paquets.
+
+** Gestionnaire de paquets (Emacs 24)
+Un gestionnaire de paquets emacs, dans emacs, pour emacs 24. Tout le
+monde l'utilise, ça simplifie l'installation de nouveau paquets.
+
+Par contre avec la multiplication de ce type gestionnaires de paquets
+de niveau application il y a des risques de conflit avec le
+gestionnaire de paquets de niveau système (pour Emacs la cohabitation
+est bien gérée).
+
+
+À ajouter dans le ~init.el~:
+#+BEGIN_SRC elisp
+;;;
+;;; ELPA/MELPA
+;;; M-x list-packages
+;;;
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+#+END_SRC
+
+Pour installer tuareg avec ce gestionnaire de paquets, dans Emacs
+taper ~M-x list-packages~ (c'est à dire ~Alt-x~ suivi de la saisie :
+~list-packages~) puis ~C-s~ (c'est à dire ~Ctrl-s~) ~tuareg~, puis
+~C-s~ jusqu'à trouver le paquet tuareg (taper ? pour afficher la
+description du paquet). Lorsque vous avez trouvé, pour installer le
+paquet sur la ligne sélectionnée, taper i puis x.
